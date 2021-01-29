@@ -79,7 +79,7 @@ class ClassInner {
         }
         System.out.println();
         //если параметр при запуске -p
-        if (str[0].equals("-p")) System.out.println("Я main класса Test запустился с параметром -p ");
+        if (str[0].equals("-p")) System.out.println("Я main запустился с параметром -p");
 
     }
 
