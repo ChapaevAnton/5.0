@@ -1,9 +1,21 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Test {
+
+    private static ArrayList<String> params;
 
     public static void main(String[] args) {
 
         stringSum("456text54");
         stringSum("45654");
+
+        //параметр -p передан при запуске
+        //можно внутри их передавать, добавляем к -p еще параметров
+        args = setParameterMain("-x", args);
+        args = setParameterMain("-y", args);
+        args = setParameterMain("-z", args);
+        getParameterMain();
 
         //Вызов статических методов класса ClassInner
         ClassInner.getPrint();
@@ -15,6 +27,19 @@ public class Test {
 
         // вызов метода main подкласса ClassInner с передачей параметров
         ClassInner.main(new String[]{"a", "b", "c"});
+        //еще раз но с параметрами от Test, передав в внутренний класс ClassInner
+        ClassInner.main(args);
+
+    }
+
+    public static String[] setParameterMain(String str, String[] args) {
+        params = new ArrayList<>(Arrays.asList(args));
+        params.add(str);
+        return params.toArray(new String[0]);
+    }
+
+    public static void getParameterMain() {
+        System.out.println(params);
 
     }
 
@@ -53,8 +78,12 @@ class ClassInner {
             System.out.print(parameter);
         }
         System.out.println();
+        //если параметр при запуске -p
+        if (str[0].equals("-p")) System.out.println("Я main класса Test запустился с параметром -p ");
+
     }
-    void getPrintInner(){
+
+    void getPrintInner() {
         System.out.println("Я экземпляр класса ClassInner");
     }
 
